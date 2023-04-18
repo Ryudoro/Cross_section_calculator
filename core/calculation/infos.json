@@ -1,33 +1,28 @@
 {
   "evenements": [
     {
-      "outgoing_particles": [11, -11],
+      "outgoing_particles" = 1000022,
+      "outgoing_particles" = 1000022
+    {
       "parametres": {
-        "M1": 100,
-        "M2": 200,
+        "M1": 2000,
+        "M2": {
+          "min": 0,
+          "max": 1600,
+          "step": 50
+        },  
         "mu": {
-          "min": 10,
-          "max": 20
+          "min": -1000,
+          "max": 1000,
+          "step": 50
         }
       },
-      "liens": {
-        "fichier": "chemin/vers/fichier1.txt",
-        "dossier": "chemin/vers/dossier1"
+      "slha_folder": {
+        "dossier": "../Parameters/File_creation/Data/slha_folder"
       }
     },
-    {
-      "outgoing_particles": [13, -13],
-      "parametres": {
-        "M1": 150,
-        "M2": 250,
-        "mu": {
-          "min": 15,
-          "max": 25
-        }
-      },
-      "liens": {
-        "fichier": "chemin/vers/fichier2.txt",
-        "dossier": "chemin/vers/dossier2"
+      "resummino_folder": {
+        "dossier": "../Parameters/File_creation/Data/resummino_folder"
       }
     }
   ]
