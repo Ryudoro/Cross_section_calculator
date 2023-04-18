@@ -1,8 +1,8 @@
 {
   "evenements": [
     {
-      "outgoing_particles" = 1000022,
-      "outgoing_particles" = 1000022
+      "outgoing_particles": 1000022,
+      "outgoing_particles": 1000022
     {
       "parametres": {
         "M1": 2000,
