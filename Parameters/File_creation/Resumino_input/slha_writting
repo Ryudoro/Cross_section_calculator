@@ -1,0 +1,12 @@
+def finding_result(file, order):
+  with open(input_file, 'r') as f:
+    lines = f.readlines()
+
+    for line in lines:
+      _ = None
+      if line.startswith(order+" ="):
+        _ = line.split(" ")[2]
+    return _
+            
+def writing_result(value):
+  
