@@ -14,4 +14,4 @@ def extract_m1_m2_mu(file_path):
           'mu(MX)' : mu
      }
 
-     return result
+     return m1,m2,mu
