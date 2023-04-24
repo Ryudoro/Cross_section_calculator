@@ -8,7 +8,7 @@ import tempfile
 from ancre_search import trouver_chemin_ancre
 
 ancre = trouver_chemin_ancre("README.md")
-sys.path.append('ancre')
+sys.path.append(ancre)
 
 from Parameters.File_creation.SLHA_input.exctract_param import extract_m1_m2_mu
 from core.calculation.creation import routine_creation
@@ -59,10 +59,12 @@ def is_there_folder(dossier):
 #       particles = neutralino_choice(input)
 
 
-
 def run_resummino(input_file, output_file):
     #modifie_slha_file(input_file, slha_file)
-    commande = f"{./../../../resummino-releases/bin/resummino} {input_file}"
+    _ = ancre.split("/")
+    ancre_2 = '/'.join(_[:-1])
+    chemin = os.path.join(ancre_2, "resummino-releases/bin/resummino")
+    commande = f"python3 {chemin} {input_file}"
     with open(output_file, 'w') as f:
         subprocess.run(commande, shell=True, stdout=f, text=True)
         
@@ -72,4 +74,3 @@ def routine_resummino():
     futures = [executor.submit(run_resummino, *task) for task in tasks]
     for future in futures:
         future.result()
-      
