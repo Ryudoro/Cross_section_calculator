@@ -1,19 +1,27 @@
 import json
+import sys
+import os
+import subprocess
 from ancre_search import trouver_chemin_ancre
 
 ancre = trouver_chemin_ancre("README.md")
-sys.path.append('ancre')
+sys.path.append(ancre)
 from Parameters.File_creation.Resumino_input.Outgoing_particles import modifie_outgoing_particles
 from Parameters.File_creation.Resumino_input.slha_file_change import modifie_slha_file
 from core.calculation.neutralino import neutralino_choice
 def extract_softsusy_folder(file, outputfile):
   commande = f'tar -xzf {file} -C {outputfile}'
+  subprocess.run(commande, shell=True, text=True)
+
 
 def routine_creation():
   ancre = trouver_chemin_ancre("README.md")
   input_dir = os.path.join(ancre, "Parameters", "Data")
   resummino_folder = os.path.join(input_dir, "resummino_input")
-  extract_softsusy_folder(os.path.join(input_dir, "slha_folder.tar"), os.path.join(input_dir, "slha_folder"))
+  parameters_dir = os.path.join(ancre, "Parameters")
+  data_dir = os.path.join(parameters_dir, 'Data')
+  if True:
+    extract_softsusy_folder(os.path.join(parameters_dir,'File_creation','SLHA_input', "softsusy_output.tar"), data_dir)
   liste_input = os.listdir(os.path.join(input_dir, "slha_folder"))
   os.makedirs(resummino_folder)
   tasks = []
