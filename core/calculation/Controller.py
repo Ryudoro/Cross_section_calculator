@@ -74,4 +74,3 @@ def routine_resummino():
     futures = [executor.submit(run_resummino, *task) for task in tasks]
     for future in futures:
         future.result()
-      
