@@ -1,6 +1,8 @@
 import json
+import math
 import sys
 import os
+import shutil
 from ancre_search import trouver_chemin_ancre
 
 ancre = trouver_chemin_ancre("README.md")
@@ -26,16 +28,27 @@ def neutralino_choice(file):
     m1,m2,mu = extract_m1_m2_mu(file)
     param_study, param_name = parameter_study()
     if 'mu' and 'M2' in param_name:
-       if float(m2) > float(mu):
-          json_data = '{"liste_particles" : [{"outgoing_particle_1": 1000025, "outgoing_particle_2": 1000037}, {"outgoing_particle_1": 1000025, "outgoing_particle_2": -1000037}, {"outgoing_particle_1": -1000037, "outgoing_particle_2": 1000037}]}'
-          data = json.loads(json_data)
-          with open('particles.json', 'w') as file:
-              json.dump(data, file)
-          return json_data
-       if float(m2) < float(mu):
-          json_data = '{"liste_particles" : [{"outgoing_particle_1": 1000023, "outgoing_particle_2": 1000037}, {"outgoing_particle_1": 1000023, "outgoing_particle_2": -1000037}, {"outgoing_particle_1": 1000025, "outgoing_particle_2": 1000037}, {"outgoing_particle_1": 1000025, "outgoing_particle_2": -1000037}, {"outgoing_particle_1": -1000037, "outgoing_particle_2": 1000037}, {"outgoing_particle_1": 1000023, "outgoing_particle_2": 1000025}]}'
-          data = json.loads(json_data)
-          with open('particles.json', 'w') as file:
-              json.dump(data, file)
-          return json_data
+       if float(m2) >= math.fabs(float(mu)):
+            path = os.path.join(ancre, 'Parameters', 'Data', 'output_resummino', 'm2>mu', f'output_{m2}_{mu}')
+            old_path = os.path.join(ancre, 'Data', 'output_dir', file)
+            print(path, old_path)
+            if not os.path.exists(path):
+                os.makedirs(path)
+            shutil.copy(old_path, os.path.join(path, file +'_'))
+            json_data = '{"liste_particles" : [{"outgoing_particle_1": 1000025, "outgoing_particle_2": 1000037}, {"outgoing_particle_1": 1000025, "outgoing_particle_2": -1000037}, {"outgoing_particle_1": -1000037, "outgoing_particle_2": 1000037}]}'
+            data = json.loads(json_data)
+            with open('particles.json', 'w') as file:
+                json.dump(data, file)
+            return json_data, True, m2,mu
+       if float(m2) < math.fabs(float(mu)):
+            path = os.path.join(ancre, 'Parameters',  'Data', 'output_resummino', 'm2<mu', f'output_{m2}_{mu}')
+            old_path = os.path.join(ancre, 'Data', 'output_dir', file)
+            if not os.path.exists(path):
+                os.makedirs(path)
+            shutil.copy(old_path, os.path.join(path, file +'_'))
+            json_data = '{"liste_particles" : [{"outgoing_particle_1": 1000023, "outgoing_particle_2": 1000037}, {"outgoing_particle_1": 1000023, "outgoing_particle_2": -1000037}, {"outgoing_particle_1": 1000025, "outgoing_particle_2": 1000037}, {"outgoing_particle_1": 1000025, "outgoing_particle_2": -1000037}, {"outgoing_particle_1": -1000037, "outgoing_particle_2": 1000037}, {"outgoing_particle_1": 1000023, "outgoing_particle_2": 1000025}]}'
+            data = json.loads(json_data)
+            with open('particles.json', 'w') as file:
+                json.dump(data, file)
+            return json_data, False, m2, mu
 
