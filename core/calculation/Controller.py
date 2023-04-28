@@ -64,8 +64,8 @@ def run_resummino(input_file, output_file):
     _ = ancre.split("/")
     ancre_2 = '/'.join(_[:-1])
     chemin = os.path.join(ancre_2, "resummino-releases/bin/resummino")
-    commande = f"python3 {chemin} {input_file}"
-    with open(output_file, 'w') as f:
+    commande = f"./resummino-releases/bin/resummino {input_file} --nlo"
+    with open(output_file, 'w', encoding ='utf-8') as f:
         subprocess.run(commande, shell=True, stdout=f, text=True)
         
 def routine_resummino():
@@ -74,3 +74,5 @@ def routine_resummino():
     futures = [executor.submit(run_resummino, *task) for task in tasks]
     for future in futures:
         future.result()
+
+routine_resummino()
