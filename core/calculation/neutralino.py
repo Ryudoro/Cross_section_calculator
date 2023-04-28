@@ -29,9 +29,8 @@ def neutralino_choice(file):
     param_study, param_name = parameter_study()
     if 'mu' and 'M2' in param_name:
        if float(m2) >= math.fabs(float(mu)):
-            path = os.path.join(ancre, 'Parameters', 'Data', 'output_resummino', 'm2>mu', f'output_{m2}_{mu}')
+            path = os.path.join(ancre, 'Parameters', 'Data', 'output_resummino', 'm2_mu', f'output_{m2}_{mu}')
             old_path = os.path.join(ancre, 'Data', 'output_dir', file)
-            print(path, old_path)
             if not os.path.exists(path):
                 os.makedirs(path)
             shutil.copy(old_path, os.path.join(path, file +'_'))
@@ -41,7 +40,7 @@ def neutralino_choice(file):
                 json.dump(data, file)
             return json_data, True, m2,mu
        if float(m2) < math.fabs(float(mu)):
-            path = os.path.join(ancre, 'Parameters',  'Data', 'output_resummino', 'm2<mu', f'output_{m2}_{mu}')
+            path = os.path.join(ancre, 'Parameters',  'Data', 'output_resummino', 'mu_m2', f'output_{m2}_{mu}')
             old_path = os.path.join(ancre, 'Data', 'output_dir', file)
             if not os.path.exists(path):
                 os.makedirs(path)
