@@ -48,7 +48,7 @@ def routine_creation():
           file_path  = os.path.join(input_dir, "output_resummino", 'm2_mu', f'output_{m2}_{mu}',f"resummino_{outgoing_particle_1}_{outgoing_particle_2}_{inpute}.txt" )
         else:
           file_path  = os.path.join(input_dir, "output_resummino",'mu_m2', f'output_{m2}_{mu}',f"resummino_{outgoing_particle_1}_{outgoing_particle_2}_{inpute}.txt" )
-        modifie_slha_file(resummino_path, resummino_path, os.path.join(data_dir,input))
+        modifie_slha_file(resummino_path, resummino_path, os.path.join(data_dir,'output_dir', input))
         # if not os.path.exists(file_path):
         #   output_resummino = os.makedirs(file_path)
         tasks.append((resummino_path, file_path))
