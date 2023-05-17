@@ -8,6 +8,7 @@ Possibilité de modifier l'ordre du calculer (paramètre order) ou le dossier de
 Attention, il reste encore des fonctions à créer:
 
 -Une fonction pour vérifier les canaux déjà calculer, si jamais on en a rajouter dans particle_discrimination
+
 -Une fonction pour ne pas prendre tous les fichiers dans le slha_folder (si jamais il y a d'autres fichier par erreur qui ne sont pas .slha).
 
 Pour modifier les conditions que l'on souhaite mettre (points déjà exclus) choisir dans particle_discrimination.
