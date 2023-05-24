@@ -39,7 +39,7 @@ def launcher(input_file, slha_file, output_file, particle_1, particle_2, num_try
 
     #Ici on écrit dans le fichier slha, la variable hist permet de voir s'il y a eu une erreur
     #Dans le calcul des section efficaces Lo et NLO
-    hist = write_in_slha(output_file, slha_file, order, particle_1, particle_2, 'all')
+        hist = write_in_slha(output_file, slha_file, order, particle_1, particle_2, 'all')
 
     #On vérifie si jamais on a écrit trop de choses
     are_crosssection(slha_file, order)
