@@ -34,6 +34,9 @@ def launcher(input_file, slha_file, output_file, particle_1, particle_2, num_try
     #modifie_slha_file(input_file, input_file, slha_file)
     modifie_outgoing_particles(input_file, input_file, particle_1, particle_2)
     #on lance si c'est le premier essai par défaut
+    
+    hist = 0
+    
     if num_try == 0:
         launch_command(resummino_bin, input_file, output_file, order)
 
