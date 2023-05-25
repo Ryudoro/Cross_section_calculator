@@ -48,11 +48,11 @@ def routine_creation(order, slha_folder_name):
             data = f.readlines()
             a+=1
             
-        if data[-1].endswith("Resumminov3.1.2\n"):
+        if data[-1].endswith("Resumminov3.1.2\n") or data[-1].endswith("Resumminov3.1.2"):
             b+=1
             #On augmente cette variable de 1, comme ca si elle est > 0 on ne refait pas le calcul
             num_try+=1
-        elif data[-1].endswith(" #no_cross-section\n"):
+        elif data[-1].endswith(" #no_cross-section\n") or data[-1].endswith(" #no_cross-section"):
             c+=1
             #On augmente cette variable de 1, comme ca si elle est > 0 on ne refait pas le calcul
             num_try+=1
