@@ -1,4 +1,5 @@
 
+
 def are_crosssection(slha_file, order):
     """
     Vérifie si les sections efficaces sont déjà écrites, et supprime
@@ -24,11 +25,14 @@ def are_crosssection(slha_file, order):
     for i in range(len(data)):
         line = data[i]
         if line.startswith("XSECTION"):
-            canal = (line.split(" ")[7], line.split(" ")[8])
+            canal = (line.split(" ")[7], line.split(" ")[8],line.split(" ")[2])
+            
             if canal in canaux:
-
                 start = canaux[canal]
-                end = start+order+3
+                end = start+1
+                while not data[end].startswith('XSECTION'):
+                    end+=1
+                #end = start+order+3
                 to_delete.extend(range(start, end))
             canaux[canal] = i
     lines = [line for i, line in enumerate(data) if i not in to_delete]
