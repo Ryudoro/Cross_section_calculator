@@ -25,7 +25,7 @@ def are_crosssection(slha_file, order):
     for i in range(len(data)):
         line = data[i]
         if line.startswith("XSECTION"):
-            canal = (line.split(" ")[7], line.split(" ")[8],line.split(" ")[2])
+            canal = (int(line.split(" ")[7]), int(line.split(" ")[8]),line.split(" ")[2])
             
             if canal in canaux:
                 start = canaux[canal]
@@ -39,5 +39,19 @@ def are_crosssection(slha_file, order):
 
     with open(slha_file, 'w') as f:
         f.writelines(lines)
-
+        
+        
+def canaux_finding(slha_file):
     
+    with open(slha_file, 'r') as f:
+        data = f.readlines()
+        
+    canaux = []
+
+    for i in range(len(data)):
+        line = data[i]
+        if line.startswith("XSECTION"):
+            if line.split(" ")[2] == '1.30E+04':
+                canal = (int(line.split(" ")[7]), int(line.split(" ")[8]))
+                canaux.append(canal)
+    return canaux
