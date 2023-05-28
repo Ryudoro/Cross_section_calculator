@@ -4,6 +4,7 @@ from concurrent.futures import ProcessPoolExecutor
 from calculation import one_slha_calculation
 from modifie_input_resummino import modifie_slha_file
 from particles_discrim import discrimination_particles
+from are_already_cross_section import canaux_finding
 
 def routine_creation(order, slha_folder_name):
    #slha_file = "outputM_12000M_20mu100.slha"
@@ -44,18 +45,37 @@ def routine_creation(order, slha_folder_name):
         slha_path = os.path.join(slha_folder,slha)
         #Variable utilisée pour éviter les abérations (grosse différence LO/NLO)
         num_try = 0
+        
+        particles = discrimination_particles(slha_path)
+        
         with open(slha_path, 'r') as f:
             data = f.readlines()
             a+=1
             
         if data[-1].endswith("Resumminov3.1.2\n") or data[-1].endswith("Resumminov3.1.2"):
             b+=1
-            #On augmente cette variable de 1, comme ca si elle est > 0 on ne refait pas le calcul
-            num_try+=1
+            
+            old_canaux = canaux_finding(slha_path)
+            # Conversion des tuples en sets
+            set_list_1 = {frozenset(item) for item in particles}
+            set_list_2 = {frozenset(item) for item in old_canaux}
+
+            # Calcul de la différence
+            diff = set_list_1 - set_list_2
+
+            # Conversion du résultat en une liste de tuples
+            result = [tuple(item) for item in diff]
+
+            if result == []:
+                #On augmente cette variable de 1, comme ca si elle est > 0 on ne refait pas le calcul
+                num_try+=1
+            
+            
         elif data[-1].endswith(" #no_cross-section\n") or data[-1].endswith(" #no_cross-section"):
             c+=1
             #On augmente cette variable de 1, comme ca si elle est > 0 on ne refait pas le calcul
-            num_try+=1
+            if particles == None:
+                num_try+=1
 
         #on enlève le .slha
         slha_file_name = slha[6:-5]
@@ -69,7 +89,7 @@ def routine_creation(order, slha_folder_name):
         Liste_slha.append(slha_path)
 
         #On liste ici les canaux à utiliser, si scénario exclu alors renvoi None
-        particles = discrimination_particles(slha_path)
+        
         Liste_particles.append(particles)
 
         #On pourrait optimiser en enlevant les variables qui ne changent pas d'une itération à l'autre
