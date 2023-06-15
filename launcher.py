@@ -5,7 +5,7 @@ from modifie_input_resummino import modifie_outgoing_particles
 from analyse_output import write_in_slha
 from are_already_cross_section import are_crosssection
 
-resummino_bin = "./resummino-releases/bin/resummino"
+resummino_bin = "./resummino-3.1.2/bin/resummino"
 # slha_file = "outputM_12000M_20mu100.slha"
 # input_file = "ff1a240db6c1719fe9f299b3390d49d32050c4f1003286d2428411eca45bd50c.in"
 # output_file = "output_file.txt"
