@@ -4,6 +4,7 @@ from modifie_input_resummino import modifie_slha_file
 from modifie_input_resummino import modifie_outgoing_particles
 from analyse_output import write_in_slha
 from are_already_cross_section import are_crosssection
+from are_already_cross_section import canaux_finding
 
 resummino_bin = "./resummino-3.1.2/bin/resummino"
 # slha_file = "outputM_12000M_20mu100.slha"
@@ -36,6 +37,10 @@ def launcher(input_file, slha_file, output_file, particle_1, particle_2, num_try
     #on lance si c'est le premier essai par défaut
     
     hist = 0
+    already_written_canal = canaux_finding(slha_file)
+    
+    if (particle_1, particle_2) in already_written_canal:
+        return
     
     if num_try == 0:
         launch_command(resummino_bin, input_file, output_file, order)
@@ -51,5 +56,6 @@ def launcher(input_file, slha_file, output_file, particle_1, particle_2, num_try
     if hist == 1:
         print("error")
         num_try = 0
+        modifie_outgoing_particles(input_file, input_file, particle_1, particle_2)
         launcher(input_file, slha_file, output_file, particle_1, particle_2, num_try, order)
 #launcher(input_file, slha_file, output_file, particle_1, particle_2)
